@@ -10,11 +10,13 @@ Part of the problem is hidden in the **CL_BatchResourceRequest** function. This 
 
 **IsSafeFileToDownload** function is used only in generic resources, all other types rely only on the **CL_CheckFile** check, which has a very poor set of rules, according to IDA pseudocode for 7960 engine build:
 
-```if ( Q_strstr(pFileName, "..") || Q_strstr(pFileName, "server.cfg") )
+```cpp
+if ( Q_strstr(pFileName, "..") || Q_strstr(pFileName, "server.cfg") )
 {
   Con_DPrintf("Refusing to download a path with '..'\n");
   return 1;
-}```
+}
+```
 
 As you can see, only the presence of double-dot and the file name server.cfg substrings in the variable pFileName are checked.
 
