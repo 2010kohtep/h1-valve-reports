@@ -84,7 +84,7 @@ void __cdecl SV_RegisterResources()
 
 To reduce the load, it should look like this:
 
-```
+```cpp
 void __cdecl SV_RegisterResources()
 {
   int v0; // edi@1
