@@ -26,7 +26,7 @@ I've also attached modified and original dem-files. Perhaps this will help.
 
 Create conditions that don't allow to read too much data. For example:
 
-```
+```cpp
 size = BitBuffer::ReadLong(buf);
 if (size > sizeof(buffer))
   size = sizeof(buffer);

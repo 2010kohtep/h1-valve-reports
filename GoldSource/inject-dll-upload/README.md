@@ -46,11 +46,13 @@ As a result, client will download the library bin\TrackerUI.dll, which should no
 
 Replace the **CL_CheckFile** function code above with the following one:
 
-```if (! IsSafeFileToDownload (pFileName) )
+```cpp
+if (! IsSafeFileToDownload (pFileName) )
 {
 Con_DPrintf ("Refusing to download restricted file.\n");
 return 1;
-}```
+}
+```
 
 ## Impact
 

@@ -14,7 +14,7 @@ The ability to execute unwanted console commands by the server is hidden in seve
 
 Out-of-band packet **S2C_REDIRECT** ('L'), which is processed in the **CL_ConnectionlessPacket** function, may execute console commands. Game engine expects to get the server address to which it will be redirected using console command **connect**, however, the attacker has the ability to write other console commands here. If we examine the handler of this OOB packet, we can understand what the problem lies in.
 
-```
+```cpp
 void CL_ConnectionlessPacket()
 {
 	MSG_BeginReading();
@@ -42,7 +42,7 @@ void CL_ConnectionlessPacket()
 ```
 As we can see, any information received from **MSG_ReadStringLine** function can be written in **Cbuf_AddText**, which means that an attacker can construct the next packet and execute any command on the client (in this case, **bind**), because it does not even fit into the filter:
 
-```
+```cpp
 #define CONNECTIONLESS_HEADER (-1)
 #define S2C_REDIRECT ('L')
 
@@ -54,7 +54,7 @@ MSG_WriteString("127.0.0.1; bind w kill");
 
 As a solution, I can suggest using the following code instead of the above:
 
-```
+```cpp
 void CL_ConnectionlessPacket()
 {
 	MSG_BeginReading();
@@ -94,7 +94,7 @@ Since the presence of the character ';' is necessary to create a lot of console 
 
 It's a game message, which is necessary for the spectator HUD to work. This message contains a nested message that is sent to the client library by using the **HUD_DirectorMessage** function, where it executes. We should focus on the **DRC_CMD_STUFFTEXT** message handler. It looks like this:
 
-```
+```cpp
 void CHudSpectator::DirectorMessage(int iSize, void *pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
@@ -116,7 +116,7 @@ Variable **cmd** is passed to the function **hudClientCmd**, which is in the ren
 
 The solution is to use the **ValidStuffText** function in the **DRC_CMD_STUFFTEXT** handler. Like this:
 
-```
+```cpp
 void CHudSpectator::DirectorMessage(int iSize, void *pbuf)
 {
 	BEGIN_READ(pbuf, iSize);
