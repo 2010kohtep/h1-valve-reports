@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{42e41250-4d44-4359-a4c4-e9728078c020}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common">
+      <UniqueIdentifier>{d52647fd-8e3a-48ab-a5c5-fe9341c94d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils">
+      <UniqueIdentifier>{eff90428-c2fb-49b9-a767-58c301d3b32d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\BmpSploit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Utils\InlineCode.h">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utils\File.h">
+      <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common\Types.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Common\ntdll.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
